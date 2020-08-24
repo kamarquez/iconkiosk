@@ -1,25 +1,17 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Home from './components/home/Home';
+import Nav from './components/nav/Nav';
 
-function App() {
+
+function App(props) {
+    const value = prompt("Ingrese su nombre");
+    /*const value = "kari";*/
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+   <div>
+     <Nav/>
+     <Home nombre={value}/>
+   </div>
   );
 }
 
