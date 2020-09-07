@@ -112,6 +112,6 @@ function getProducts() {
                     photo: "/images/12.jpg"
                 },
             ]);
-        }, 3000);
+        }, 2000);
     });
 }
