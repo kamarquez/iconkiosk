@@ -1,0 +1,17 @@
+.cinput {
+    display: inline-block;
+    vertical-align: middle;
+    max-width:80px;
+    margin: 5px;
+    text-align: center
+}
+
+.add-btn {
+    display: block;
+    max-width:500px;
+    margin: 5px 0;
+    padding: 7px 30px;
+    text-align: center;
+    margin-left: 20px;
+    background-color: #ff7261;
+}

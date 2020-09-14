@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { NavLink as RRNavLink } from 'react-router-dom';
 import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 import './Nav.css';
 import {
@@ -39,7 +40,7 @@ const NavBar = (props) => {
                 <Collapse isOpen={isOpen} navbar>
                     <Nav className="mr-auto" navbar>
                         <NavItem>
-                            <NavLink href="/home/">Quienes Somos</NavLink>
+                            <NavLink tag={RRNavLink} to="/about" activeClassName="active">Quienes Somos</NavLink>
                         </NavItem>
                         <UncontrolledDropdown nav inNavbar>
                             <DropdownToggle nav caret>
@@ -47,28 +48,28 @@ const NavBar = (props) => {
                             </DropdownToggle>
                             <DropdownMenu right>
                                 <DropdownItem>
-                                    Deco
+                                    <NavLink tag={RRNavLink} to="/category/1" activeClassName="active">Deco</NavLink>
                                 </DropdownItem>
                                 <DropdownItem>
-                                    Hogar
+                                    <NavLink tag={RRNavLink} to="/category/2" activeClassName="active">Hogar</NavLink>
                                 </DropdownItem>
                                 <DropdownItem>
-                                    Uso personal
+                                    <NavLink tag={RRNavLink} to="/category/3" activeClassName="active">Uso personal</NavLink>
                                 </DropdownItem>
                                 <DropdownItem>
-                                    Escritorio
+                                    <NavLink tag={RRNavLink} to="/category/4" activeClassName="active">Escritorio</NavLink>
                                 </DropdownItem>
                                 <DropdownItem divider />
                                 <DropdownItem>
-                                    Best sellers
+                                    <NavLink tag={RRNavLink} to="/category/5" activeClassName="active">Best sellers</NavLink>
                                 </DropdownItem>
                             </DropdownMenu>
                         </UncontrolledDropdown>
                         <NavItem>
-                            <NavLink href="/contacto/">Contacto</NavLink>
+                            <NavLink tag={RRNavLink} to="/contacto" activeClassName="active">Contacto</NavLink>
                         </NavItem>
                         <NavItem>
-                            <NavLink href="/registro/">Registrarse</NavLink>
+                            <NavLink tag={RRNavLink} to="/registro" activeClassName="active">Registrarse</NavLink>
                         </NavItem>
                         <NavItem>
                             {/*<Form inline>
