@@ -21,7 +21,7 @@ export default function CartItem(){
         <td className="actions" data-th="">
             <div className="text-right">
                 <button className="btn btn-white border-secondary bg-white btn-md mb-2">
-                    <i className="fs fa-trash"></i>
+                    <i className="fa fa-trash"></i>
                 </button>
             </div>
         </td>
