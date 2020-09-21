@@ -4,8 +4,9 @@ import './App.css';
 import Nav from './components/nav/Nav';
 import Product from "./pages/product/Product";
 import Home from './pages/home/Home';
-import Form from './components/exercises/Formulario.js';
 import ItemList from "./components/store/ItemList";
+import ItemDetailContainer from "./components/store/detail/ItemDetailContainer";
+import Cart from "./components/store/cart/Cart";
 
 /**
  * The App Component.
@@ -49,22 +50,12 @@ export default class App extends Component {
                 <BrowserRouter>
                     <Nav/>
                     <Switch>
-                        <Route exact path='/'>
-                            <Home />
-                        </Route>
-                        <Route path='/category/:id'>
-                            <ItemList />
-                        </Route>
-                        <Route path='/product/:id'>
-                            <Product />
-                        </Route>
-                        <Route path='/form'>
-                            <Form />
-                        </Route>
+                        <Route exact path='/' component={Home} />
+                        <Route path='/category/:id' component={ItemList} />
+                        <Route path='/product/:id' component={ItemDetailContainer} />
+                        <Route path='/cart' component={Cart} />
                     </Switch>
-
                 </BrowserRouter>
-
             </div>
         );
     }

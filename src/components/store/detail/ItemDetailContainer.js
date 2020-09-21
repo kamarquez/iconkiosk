@@ -5,14 +5,16 @@ import Loading from "../../Loading/Loading";
 class ItemDetailContainer extends  Component {
     constructor(props) {
         super(props);
-        this.productID = this.props.id;
+        //
         this.state = {
             isLoading: false,
             data: [],
+            //productID : this.props.id,
+            productID: props.match.params.id
         };
     }
 
-    getProduct() {
+    /*getProduct() {
         return new Promise((resolve, reject) => {
             setTimeout(() => {
                 resolve({
@@ -24,7 +26,7 @@ class ItemDetailContainer extends  Component {
                 });
             }, 1000);
         });
-    }
+    }*/
 
     getProducts() {
         return new Promise((resolve, reject) => {
@@ -121,7 +123,7 @@ class ItemDetailContainer extends  Component {
 
 
     componentDidMount() {
-        console.log(this.productID);
+        console.log(this.state.productID);
         this.setState({ isLoading: true });
         //fetch('https://api.mercadolibre.com/items/MLA841413632')
         this.getProducts()
@@ -129,7 +131,7 @@ class ItemDetailContainer extends  Component {
                 // response.json()
                 //return response;
                 console.log(response)
-                let res = response.find(obj => { return obj.id == this.productID})
+                let res = response.find(obj => { return obj.id == this.state.productID})
                 console.log(res)
                 this.setState({isLoading: false, data: res})
             })
@@ -140,7 +142,7 @@ class ItemDetailContainer extends  Component {
     }
 
     render() {
-        const { data, isLoading } = this.state;
+        const { data, isLoading, id } = this.state;
 
         if (isLoading) {
             return <Loading />;
