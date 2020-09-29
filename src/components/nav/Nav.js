@@ -27,7 +27,7 @@ const NavBar = (props) => {
         <div>
             <Navbar color="light" light className="justify-content-center" expand="md">
 
-                <NavbarBrand href="/">
+                <NavbarBrand tag={RRNavLink} to="/">
                     <img
                         src={Logo}
                         width="125"

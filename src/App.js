@@ -1,8 +1,8 @@
 import React , {Component} from 'react';
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
+import { CartProvider } from "./context/CartContext";
 import './App.css';
 import Nav from './components/nav/Nav';
-import Product from "./pages/product/Product";
 import Home from './pages/home/Home';
 import ItemList from "./components/store/ItemList";
 import ItemDetailContainer from "./components/store/detail/ItemDetailContainer";
@@ -43,18 +43,22 @@ export default class App extends Component {
      * @memberof App
      */
     render() {
-        console.log('render()');
         return (
             <div className="App">
 
                 <BrowserRouter>
+                    <CartProvider>
                     <Nav/>
+
                     <Switch>
                         <Route exact path='/' component={Home} />
                         <Route path='/category/:id' component={ItemList} />
+
                         <Route path='/product/:id' component={ItemDetailContainer} />
                         <Route path='/cart' component={Cart} />
+
                     </Switch>
+                    </CartProvider>
                 </BrowserRouter>
             </div>
         );

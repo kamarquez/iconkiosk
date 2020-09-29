@@ -1,15 +1,39 @@
-import React, {useState} from 'react';
+import React, {useContext, useState, useEffect} from 'react';
 import './ItemDetail.css';
 import Counter from "../counter/Counter";
 import CounterButton from "../counter/CounterButton";
+import { CartContext} from "../../../context/CartContext";
 
 export default function Item(props) {
+    const [cart, setCart] = useContext(CartContext);
     const [cantidad, setCantidad] = useState(0);
-    const onComprar = () => {
-        console.log('comprar');
+
+    const onAddToCart = () => {
+        if(cantidad>0){
+            console.log('comprar');
+
+            let items = [...cart];
+            let index = items.findIndex(x=> x.id === props.product.id);
+            let item = props.product;
+            item.cantidad = cantidad;
+            console.log(index);
+            if (index !== -1){
+                items[index] = item;
+                console.log(items)
+                setCart(items);
+            }else{
+                setCart(currentCart => [...currentCart, item])
+            }
+        }
     };
+
+
+    useEffect(() => {
+        console.log(cart);
+    }, [cart])
+
     const getCounterData = data => {
-        console.log(data);
+        //console.log(data);
         setCantidad(data.counter)
     }
 
@@ -41,7 +65,7 @@ export default function Item(props) {
 
                         <div className="m-bot15"><strong>Price : </strong> <span className="amount">${props.product.price}</span></div>
                         <Counter onChange={getCounterData} min={0} max={10} initial={0}>
-                            <CounterButton btnCls={'form-control btn btn-primary add-btn'} btnAction={onComprar} btnText={`Comprar: ${cantidad}`} />
+                            <CounterButton btnCls={'form-control btn btn-primary add-btn'} btnAction={onAddToCart} btnText={`Comprar: ${cantidad}`} />
                         </Counter>
                     </div>
                 </div>

@@ -6,7 +6,7 @@ function ItemList(){
     const [products, setProducts] = useState([]);
     const [error, setError] = useState("");
     const category = useParams();
-    console.log(category.id)
+    //console.log(category.id)
 
     useEffect(()=> {
         getProducts()
@@ -93,7 +93,7 @@ function getProducts() {
                     category: 2,
                     name: "Secaplatos",
                     description: "Monopieza de forma geometrica sólida y robusta capaz de alojar 6 platos y 12 cubiertos.",
-                    price: 201.10,
+                    price: 200,
                     photo: "/images/7.jpg"
                 },
                 {

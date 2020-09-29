@@ -1,14 +1,18 @@
-import React, {useEffect} from 'react';
+import React, {useContext} from 'react';
+import {CartContext} from '../../../context/CartContext';
 import CartProducts from './CartProducts';
-export default function Cart(){
+
+const Cart = () => {
+    const [cart, setCart] = useContext(CartContext);
+
     return (
     <section className= "pt-5 pb-5">
         <div className= "container">
             <div className= "row w-100" >
                 <div className= "col-lg-12 col-md-12 col-12">
-                    <h3 className= "display-5 mb-2 text-center"> Shopping Cart </h3>
-                    <p className="mb-5 text-center">3 items in your cart</p>
-                    <CartProducts />
+                    <h3 className= "display-5 mb-2 text-center"> Carrito de compras </h3>
+                    <p className="mb-5 text-center">{cart.length} items en el carrito</p>
+                    {cart.length > 0 ? <CartProducts /> : 'No hay productos en el carrito'}
                 </div>
             </div>
             <div className="row mt-4 d-flex align-items-center">
@@ -19,3 +23,4 @@ export default function Cart(){
         </div>
     </section>);
 };
+export default Cart

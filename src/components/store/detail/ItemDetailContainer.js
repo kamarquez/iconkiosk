@@ -5,7 +5,7 @@ import Loading from "../../Loading/Loading";
 class ItemDetailContainer extends  Component {
     constructor(props) {
         super(props);
-        //
+
         this.state = {
             isLoading: false,
             data: [],
@@ -78,7 +78,7 @@ class ItemDetailContainer extends  Component {
                         id: 7,
                         name: "Secaplatos",
                         description: "Monopieza de forma geometrica sólida y robusta capaz de alojar 6 platos y 12 cubiertos.",
-                        price: 201.10,
+                        price: 200,
                         photo: "/images/7.jpg"
                     },
                     {
@@ -121,22 +121,21 @@ class ItemDetailContainer extends  Component {
         });
     }
 
-
     componentDidMount() {
-        console.log(this.state.productID);
+        //console.log(this.state.productID);
         this.setState({ isLoading: true });
         //fetch('https://api.mercadolibre.com/items/MLA841413632')
         this.getProducts()
             .then((response) => {
                 // response.json()
                 //return response;
-                console.log(response)
+                //console.log(response)
                 let res = response.find(obj => { return obj.id == this.state.productID})
-                console.log(res)
+                //console.log(res)
                 this.setState({isLoading: false, data: res})
             })
             .catch((err) => {
-            console.log(err);
+            //console.log(err);
         });
 
     }

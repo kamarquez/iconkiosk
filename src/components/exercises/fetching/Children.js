@@ -1,7 +1,7 @@
 import React from 'react';
 
 function Children(props){
-    console.log(props)
+    //console.log(props)
     return(
         <div>
             Este loco recibe todo desde el props

@@ -22,7 +22,7 @@ class Counter extends Component {
                     this.props.onChange(this.state);
                 }
             });
-            console.log('onIncrease')
+            //console.log('onIncrease')
         }
     }
 
@@ -34,19 +34,19 @@ class Counter extends Component {
                     this.props.onChange(this.state);
                 }
             });
-            console.log('onDecrease')
+            //console.log('onDecrease')
         }
     }
 
     onChange = (event) => {
-        console.log('onChange');
+        //console.log('onChange');
         let counter = parseInt(event.target.value);
         this.setState({ counter: counter },()=>{
             if (this.props.onChange) {
                 this.props.onChange(this.state);
             }
         });
-        console.log('onDecrease')
+        //console.log('onDecrease')
 
     };
 
