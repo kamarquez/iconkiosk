@@ -64,7 +64,7 @@ class Counter extends Component {
                 <div className="form-group form-inline">
                 <CounterButton  btnCls={'btn btn-secondary'} btnAction={this.onDecrease} btnText={'-'} />
                 <CounterInput counterValue={this.state.counter} inputAction = {this.onChange} />
-                <CounterButton btnCls={'form-control btn btn-secondary'} btnAction={this.onIncrease} btnText={'+'} />
+                <CounterButton btnCls={'btn btn-secondary'} btnAction={this.onIncrease} btnText={'+'} />
                     {this.props.children}
                 </div>
                {/* <span>Items Agregados: {this.state.counter}</span>*/}
