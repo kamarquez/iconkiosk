@@ -65,7 +65,7 @@ export default function Item(props) {
 
                         <div className="m-bot15"><strong>Price : </strong> <span className="amount">${props.product.price}</span></div>
                         <Counter onChange={getCounterData} min={0} max={10} initial={0}>
-                            <CounterButton btnCls={'form-control btn btn-primary add-btn'} btnAction={onAddToCart} btnText={`Comprar: ${cantidad}`} />
+                            <CounterButton btnCls={'btn btn-primary add-btn'} btnAction={onAddToCart} btnText={`Comprar: ${cantidad}`} />
                         </Counter>
                     </div>
                 </div>
