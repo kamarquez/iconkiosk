@@ -1,5 +1,4 @@
-import React, {Component, UseState} from 'react';
-
+import React from 'react';
 
 function CounterInput(props) {
     return(

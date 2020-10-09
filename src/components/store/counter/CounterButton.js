@@ -1,8 +1,9 @@
-import React, {Component, UseState} from 'react';
+import React from 'react';
 import "./Counter.css";
+
 function CounterButton(props) {
     return(
-        <button onClick={props.btnAction} type="submit" className={props.btnCls}>{props.btnText}</button>
+        <button disabled={props.disabled} onClick={props.btnAction} type="submit" className={props.btnCls}>{props.btnText}</button>
     );
 }
 

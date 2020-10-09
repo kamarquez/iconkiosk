@@ -1,4 +1,4 @@
-import React, { Component, UseState } from 'react';
+import React, { Component } from 'react';
 import CounterButton from './CounterButton';
 import CounterInput from './CounterInput';
 
@@ -6,8 +6,7 @@ class Counter extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            counter: this.props.initial,
-           // cantidad : 0,
+            counter: this.props.initial
         }
         this.initial=props.initial;
         this.min=props.min;
@@ -15,18 +14,19 @@ class Counter extends Component {
     }
 
     onIncrease = () => {
-        if (this.state.counter < 10) {
+        //console.log('onIncrease')
+        if (this.state.counter < this.max) {
             let counter = this.state.counter + 1;
             this.setState({ counter: counter },()=>{
                 if (this.props.onChange) {
                     this.props.onChange(this.state);
                 }
             });
-            //console.log('onIncrease')
         }
     }
 
     onDecrease = () => {
+        //console.log('onDecrease')
         if (this.state.counter > 0) {
             let counter = this.state.counter - 1;
             this.setState({ counter: counter },()=>{
@@ -34,7 +34,7 @@ class Counter extends Component {
                     this.props.onChange(this.state);
                 }
             });
-            //console.log('onDecrease')
+
         }
     }
 
@@ -46,8 +46,6 @@ class Counter extends Component {
                 this.props.onChange(this.state);
             }
         });
-        //console.log('onDecrease')
-
     };
 
 /*
@@ -67,7 +65,6 @@ class Counter extends Component {
                 <CounterButton btnCls={'btn btn-secondary'} btnAction={this.onIncrease} btnText={'+'} />
                     {this.props.children}
                 </div>
-               {/* <span>Items Agregados: {this.state.counter}</span>*/}
             </div>
         );
     }

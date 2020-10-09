@@ -1,7 +1,9 @@
 import React from "react";
 
 export default function CartItem(props){
-    const handleChange = ()=>{};
+    const handleOnClick = ()=>{
+       props.handleRemoveItem(props.product.id)
+    };
         return(
         <tr>
         <td data-th="Product">
@@ -17,14 +19,16 @@ export default function CartItem(props){
         </td>
         <td data-th="Price">${props.product.price}</td>
         <td data-th="Quantity">
-            <input type="number" onChange={handleChange()} value={props.product.cantidad} readOnly className="form-control form-control-lg text-center" />
+            <input type="number" value={props.product.cantidad} readOnly className="form-control form-control-lg text-center" />
         </td>
         <td className="actions" data-th="">
+            {(!props.doneCO)&&
             <div className="text-right">
-                <button className="btn btn-white border-secondary bg-white btn-md mb-2">
+                <button onClick={handleOnClick} className="btn btn-white border-secondary bg-white btn-md mb-2">
                     <i className="fa fa-trash"></i>
                 </button>
             </div>
+            }
         </td>
     </tr>)
 }

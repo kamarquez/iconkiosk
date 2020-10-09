@@ -45,6 +45,7 @@ const NavBar = (props) => {
             console.log("Error searching items", error);
         }).finally(()=>{
             setLoading(false);
+            console.log(loading);
         })
     },[]);
 
@@ -78,11 +79,11 @@ const NavBar = (props) => {
                                     <DropdownItem>
                                         <NavLink tag={RRNavLink} to="/category/1" activeClassName="active">Best sellers</NavLink>
                                     </DropdownItem>
-                                    {categories.map((category) => (
-                                        <DropdownItem key={category.id}>
+                                    {categories.map((category) =>
+                                        <DropdownItem key={category.id} >
                                         <NavLink tag={RRNavLink} to={`/category/${category.id}`} activeClassName="active">{category.name}</NavLink>
                                         </DropdownItem>
-                                    ))}
+                                    )}
                                     <DropdownItem divider />
 
                                 </DropdownMenu>
@@ -92,6 +93,12 @@ const NavBar = (props) => {
                             </NavItem>
                             <NavItem>
                                 <NavLink tag={RRNavLink} to="/registro" activeClassName="active">Registrarse</NavLink>
+                            </NavItem>
+                            <NavItem>
+                                {/*<Form inline>
+                                    <Input type="search" name="search" id="exampleSearch" placeholder="Buscar" className="mr-sm-2" />
+                                    <Button variant="outline-success">Search</Button>
+                                </Form>*/}
                             </NavItem>
                         </Nav>
                         <NavbarText>

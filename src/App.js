@@ -49,11 +49,9 @@ export default class App extends Component {
                 <BrowserRouter>
                     <CartProvider>
                     <Nav/>
-
                     <Switch>
                         <Route exact path='/' component={Home} />
                         <Route path='/category/:id' component={ItemList} />
-
                         <Route path='/product/:id' component={ItemDetailContainer} />
                         <Route path='/cart' component={Cart} />
 
