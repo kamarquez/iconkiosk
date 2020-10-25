@@ -4,6 +4,7 @@ import './ItemDetail.css';
 import Counter from "../counter/Counter";
 import CounterButton from "../counter/CounterButton";
 import { CartContext} from "../../../context/CartContext";
+import {Alert} from "reactstrap";
 
 export default function Item(props) {
     const [cart, setCart] = useContext(CartContext);
@@ -48,19 +49,22 @@ export default function Item(props) {
                         </div>
                     </div>
                     <div className="col-lg-6">
+
                         <h4 className="pro-d-title">{props.product.name}</h4>
                         <p>
                             {props.product.description}
                         </p>
-
+                        {(props.product.stock <= 0)&& <Alert color="danger">Producto sin stock</Alert>}
                         <div className="m-bot15"><strong>Price : </strong> <span className="amount">${props.product.price}</span></div>
                         <Counter onChange={getCounterData} min={0} max={props.product.stock} initial={0}>
                             <CounterButton disabled={cantidad<=0} btnCls={'btn btn-primary add-btn'} btnAction={onAddToCart} btnText={`Añadir ${cantidad} items`} />
                         </Counter>
+
                         <Link to='/cart'>
                             <button style={{"maxWidth": 160, "marginTop": 20}} className="btn btn-block btn-dark btn-secondary btn-lg">
                                 <i className="fa fa-shopping-cart"></i> Comprar </button>
                         </Link>
+
                     </div>
                 </div>
                 </div>

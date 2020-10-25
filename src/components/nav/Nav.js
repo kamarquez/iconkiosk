@@ -21,7 +21,6 @@ import {
 import {CartIcon} from './CartIcon';
 import Logo from './icon_logo.svg'
 import Loading from "../Loading/Loading";
-import Item from "../store/item/Item";
 
 const NavBar = (props) => {
     const [isOpen, setIsOpen] = useState(false);
@@ -61,7 +60,7 @@ const NavBar = (props) => {
                             width="125"
                             height="50"
                             className="d-inline-block align-top"
-                            alt="React Bootstrap logo"
+                            alt="Icon"
                         />
                     </NavbarBrand>
                     <NavbarToggler onClick={toggle} />
@@ -76,11 +75,11 @@ const NavBar = (props) => {
                                 </DropdownToggle>
                                 <DropdownMenu right>
                                     <DropdownItem>
-                                        <NavLink tag={RRNavLink} to="/category/1" activeClassName="active">Best sellers</NavLink>
+                                        <NavLink tag={RRNavLink} to="/category/best-sellers" activeClassName="active">Best sellers</NavLink>
                                     </DropdownItem>
                                     {categories.map((category) => (
                                         <DropdownItem key={category.id}>
-                                        <NavLink tag={RRNavLink} to={`/category/${category.id}`} activeClassName="active">{category.name}</NavLink>
+                                        <NavLink tag={RRNavLink} to={`/category/${category.key}`} activeClassName="active">{category.name}</NavLink>
                                         </DropdownItem>
                                     ))}
                                     <DropdownItem divider />
@@ -89,9 +88,6 @@ const NavBar = (props) => {
                             </UncontrolledDropdown>
                             <NavItem>
                                 <NavLink tag={RRNavLink} to="/contacto" activeClassName="active">Contacto</NavLink>
-                            </NavItem>
-                            <NavItem>
-                                <NavLink tag={RRNavLink} to="/registro" activeClassName="active">Registrarse</NavLink>
                             </NavItem>
                         </Nav>
                         <NavbarText>

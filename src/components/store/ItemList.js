@@ -14,28 +14,52 @@ function ItemList(){
         setLoading(true)
         const db = getFirestore();
         const itemCollection = db.collection("items");
-        let filteredCollection;
-        if(id === undefined){
-            filteredCollection = itemCollection;
-        } else if (id === 1){
-            filteredCollection = itemCollection.where('destacado','==', true);
-        }else{
-           let categoryDocRef = db.collection("categories").doc(id);
-            filteredCollection = itemCollection.where('category','==', categoryDocRef);
-        }
-        filteredCollection.get()
-            .then((querySnapshot) => {
-            if (querySnapshot.size === 0) {
-                console.log("no results")
-            }
-            setProducts(querySnapshot.docs.map(doc => { return ({id: doc.id, ...doc.data()})}));
+        let filteredCollection = itemCollection;
+        if( id === undefined || id === 'best-sellers') {
+            if(id === 'best-sellers') filteredCollection = itemCollection.where('destacado','==', true);
+            filteredCollection.get()
+                .then((querySnapshot) => {
+                    if (querySnapshot.size === 0) {
+                        console.log("no results")
+                    }
+                    setProducts(querySnapshot.docs.map(doc => { return ({id: doc.id, ...doc.data()})}));
 
-        }).catch((error) => {
-            console.log("Error searching items", error);
-            setError(error)
-        }).finally(()=>{
-            setLoading(false);
-        })
+                }).catch((error) => {
+                console.log("Error searching items", error);
+                setError(error)
+            }).finally(()=>{
+                setLoading(false);
+            })
+
+        }else{
+            const catCollection = db.collection("categories");
+            const categoryDocRef = catCollection.where("key", "==",id).get()
+               .then((querySnapshot) => {
+                   if (querySnapshot.size === 0){
+                       filteredCollection = itemCollection;
+                   } else{
+                       const categoryID = querySnapshot.docs[0].id;
+                       const categoryDocRef = db.collection("categories").doc(categoryID);
+                       filteredCollection = itemCollection.where('category','==', categoryDocRef);
+                   }
+                   filteredCollection.get()
+                       .then((querySnapshot) => {
+                           if (querySnapshot.size === 0) {
+                               console.log("no results")
+                           }
+                           setProducts(querySnapshot.docs.map(doc => { return ({id: doc.id, ...doc.data()})}));
+
+                       }).catch((error) => {
+                       console.log("Error searching items", error);
+                       setError(error)
+                   }).finally(()=>{
+                       setLoading(false);
+                   })
+               })
+           ;
+
+        }
+
     },[id]);
 
 

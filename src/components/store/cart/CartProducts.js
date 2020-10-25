@@ -6,26 +6,17 @@ import * as firebase from 'firebase/app';
 import 'firebase/firestore';
 import CartItem from './CartItem';
 import Loading from "../../Loading/Loading";
+import './CartProducts.css';
 import Form from "./Formulario";
 
 
 export default function CartProducts(){
     const [cart, setCart, cartTotal] = useContext(CartContext);
     const [loading, setLoading] = useState(false)
-    const [userData, setUserData] = useState({name: '',phone: '', email: ''});
-    const [dataError, setDataError] = useState(false);
-    const [orderID, setOrderID] = useState(false)
+    const [userData, setUserData] = useState({name: '',phone: '', email: '', email2: ''});
+    const [dataErrors, setDataErrors] = useState({name: '',phone: '',email: '',email2: ''});
+    const [orderID, setOrderID] = useState(false);
 
-    const validateEmail = (email)  => {
-        const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        return re.test(email.toLowerCase());
-    }
-
-    const validatePhone = (phoneno)  =>
-    {
-        var phone_no = /^\d{10}$/;
-        return phone_no.test(phoneno);
-    }
 
     const handleRemoveItem = (itemID) => {
         let items = cart.filter(item => item.id !== itemID);
@@ -53,13 +44,12 @@ export default function CartProducts(){
         };
 
         orders.add(newOrder).then(({id})=>{
-            console.log(id);
+            //console.log(id);
             setOrderID(id)
         }).catch(err=>{
             console.log(err);
         }).finally(()=>{
             setLoading(false)
-            console.log('final');
         })
     }
 
@@ -74,7 +64,7 @@ export default function CartProducts(){
         const outOfStock = [];
         query.docs.forEach((docSnapshot, idx)=>{
             if(docSnapshot.data().stock >= cart[idx].cantidad){
-                console.log(docSnapshot.data().stock,cart[idx].cantidad)
+                //console.log(docSnapshot.data().stock,cart[idx].cantidad)
                 batch.update(docSnapshot.ref,{stock: docSnapshot.data().stock - cart[idx].cantidad})
             }else{
                 outOfStock.push({...docSnapshot.data(),id: docSnapshot.id})
@@ -85,21 +75,69 @@ export default function CartProducts(){
         }
     }
 
-    const handleUserData = (key, val) => {
-        setUserData({
-            ...userData,
-            [key]: val
-        });
-    };
-
-    const checkUserData = ()=>{
-        let dataerror =  Object.values(userData).some(x => (x === null || x === ''|| x === undefined)) || !validateEmail(userData.email) || !validatePhone(userData.phone)
-        console.log(dataError)
-        setDataError(dataerror);
+    const validateEmail = (email) => {
+        const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(email.toLowerCase());
     }
 
+    const validatePhone = (phoneno) => {
+        var phone_no = /^\d{10}$/;
+        return phone_no.test(phoneno);
+    }
+
+    const checkUserDataErrors = ()=>{
+        let disabled = false;
+        const errors = dataErrors;
+        const data = userData;
+        Object.values(errors).forEach(
+            (val) => val.length > 0 && (disabled = true)
+        );
+
+        Object.entries(data).forEach(
+            ([key, val]) => (val == '' & key !='') && (disabled = true)
+        );
+        //console.log(disabled, userData, dataErrors)
+        return disabled;
+    }
+
+    const handleUserData = (key, val) => {
+        let dataerror = '';
+        switch (key){
+            case "name":
+                dataerror = (val.length < 3) ? 'Full Name must be 5 characters long!' : '';
+                setDataErrors(({...dataErrors, [key]:dataerror}));
+                if(dataerror==''){
+                    setUserData({...userData, [key]: val });
+                }
+                break;
+            case 'email':
+                dataerror = (!validateEmail(val)) ? 'Email no valido' : '';
+                setDataErrors(({...dataErrors, [key]:dataerror}));
+                if(dataerror==''){
+                    setUserData({...userData, [key]: val });
+                }
+                break;
+            case 'email2':
+                dataerror = (!validateEmail(val) || val != userData.email) ? 'Email incorrecto' : '';
+                setDataErrors(({...dataErrors, [key]:dataerror}));
+                if(dataerror==''){
+                    setUserData({...userData, [key]: val });
+                }
+                break
+            case 'phone':
+                dataerror =  (!validatePhone(val)) ? 'Telefono no valido' : '';
+                setDataErrors(({...dataErrors, [key]:dataerror}));
+                if(dataerror==''){
+                    setUserData({...userData, [key]: val });
+                }
+                break
+        }
+        checkUserDataErrors();
+    };
+
+
     useEffect(()=>{
-        checkUserData();
+        checkUserDataErrors();
         if(orderID) {
             manageStock().then((res)=>{
                 console.log(res)
@@ -132,11 +170,11 @@ export default function CartProducts(){
                 {
                     (orderID)?
                         <>
-                        <div className="float-right">
-                            <h6>Subtotal:</h6>
-                            <h3>${cartTotal}</h3>
-                            <button onClick={cleanCart} className="btn btn-primary mb-4 btn-md pl-4 pr-4">Aceptar</button>
-                        </div>
+                            <div className="float-right">
+                                <h6>Subtotal:</h6>
+                                <h3>${cartTotal}</h3>
+                                <button onClick={cleanCart} className="btn btn-primary mb-4 btn-md pl-4 pr-4">Aceptar</button>
+                            </div>
                         </>:
                         <>
                             <div className="row"><div className= "col-md-12">
@@ -145,8 +183,10 @@ export default function CartProducts(){
                                 <h3>${cartTotal}</h3>
                             </div></div></div>
                             <div className="d-flex justify-content-between bd-highlight" style={{"backgroundColor":"#effaff"}}>
-                                <div className="p-2"><Form getUserData={handleUserData} /></div>
-                                <div><button onClick={checkOut} disabled={dataError} className="btn btn-primary m-2 btn-md pl-4 pr-4">Comprar</button></div>
+                                <div className="p-2 chform">
+                                    <Form getUserData={handleUserData}  errors={dataErrors} />
+                                </div>
+                                <div><button onClick={checkOut} disabled={checkUserDataErrors()} className="btn btn-primary m-2 btn-md pl-4 pr-4">Comprar</button></div>
                             </div>
                         </>
                 }

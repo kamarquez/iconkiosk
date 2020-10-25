@@ -1,0 +1,15 @@
+.jumbotron.store{
+    background-image: url("./iconstore.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    padding-top: 30%;
+    margin: 30px auto;
+    border-radius: 0;
+}
+
+
+.about{
+    text-align: left;
+    padding: 30px 0;
+}
